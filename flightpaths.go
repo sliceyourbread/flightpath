@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 type travelData struct {
@@ -18,10 +19,10 @@ var (
 
 func init() {
 	locations = []travelData{
-		{0, "Castle Black", []int{0, 15, 80, 90}},
-		{1, "Winterfell", []int{0, 0, 40, 50}},
-		{2, "Riverrun", []int{0, 0, 0, 70}},
-		{3, "King's Landing", []int{0, 0, 0, 0}},
+		{0, "castle black", []int{0, 15, 80, 90}},
+		{1, "winterfell", []int{0, 0, 40, 50}},
+		{2, "riverrun", []int{0, 0, 0, 70}},
+		{3, "king's landing", []int{0, 0, 0, 0}},
 	}
 
 	for j := 0; j < len(locations); j++ {
@@ -55,11 +56,11 @@ func run() error {
 
 	var departure, destination travelData
 	for _, l := range locations {
-		if l.airport == args[1] {
+		if l.airport == strings.ToLower(args[1]) {
 			departure = l
 		}
 
-		if l.airport == args[2] {
+		if l.airport == strings.ToLower(args[2]) {
 			destination = l
 		}
 	}

@@ -1,7 +1,7 @@
 # Flight paths 
-flight path calculates all possible paths for flying and costs from user inputted start and end destinations  
+flight path calculates all possible paths and costs from a user inputted start and end destination  
 
-flight paths has an internal structure travelData which contains all the locations and costs this  service currently provides flight paths for. This structure is expandable new flights can be added in the same format as the exisiting data; the extra location costs will also need adding to all exisitings data. 
+flight paths has an internal structure travelData which contains all the locations and costs this  service currently provides flight paths for. This structure is expandable, new flights can be added in the same format as the exisiting data; the extra location costs will also need adding to all exisitings data. 
 
 
 ##  Build and Run 

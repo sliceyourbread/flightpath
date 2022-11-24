@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -20,7 +19,6 @@ func TestFlightPaths(t *testing.T) {
 	for _, test := range tests {
 		actual := flightPaths(test.start, test.end)
 
-		fmt.Println(actual)
 		if len(actual) != test.expected {
 			t.Errorf("flightPaths failed for test: %v", test)
 		}

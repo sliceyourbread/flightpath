@@ -32,6 +32,12 @@ func init() {
 }
 
 func main() {
+	//validate locations
+	if err := validatLocations(); err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
+	}
+
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
@@ -43,8 +49,8 @@ func run() error {
 
 	// if we receive more than two loctions return error
 	// however an improvement for this piece could be adding more control over the locations
-	if len(args) > 3 {
-		return fmt.Errorf("to many parameters, please input two locations")
+	if len(args) > 3 || len(args) < 3 {
+		return fmt.Errorf("incorrect number of parameters, please input two locations")
 	}
 
 	var departure, destination travelData
@@ -160,4 +166,28 @@ func stopCalculator(paths [][]int, dep string) []string {
 		}
 	}
 	return stops
+}
+
+func validatLocations() error {
+	for j := 0; j < len(locations); j++ {
+		zeroCostFlight := 0
+		for i := 0; i < len(locations); i++ {
+			// cost no associated with every location
+			if len(locations[j].cost) != len(locations) {
+				return fmt.Errorf("number of locations does not match number of costs")
+
+			}
+
+			if locations[j].cost[i] == 0 {
+				zeroCostFlight++
+			}
+
+			// the number of zero costs should increase by one for each stop as we move further south
+			if zeroCostFlight > j+1 {
+				return fmt.Errorf("locations not ordered from most north to most south")
+			}
+
+		}
+	}
+	return nil
 }

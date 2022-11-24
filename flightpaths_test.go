@@ -14,6 +14,9 @@ func TestFlightPaths(t *testing.T) {
 		{0, 1, 1},
 		{0, 2, 2},
 		{0, 3, 4},
+		{1, 2, 1},
+		{2, 3, 1},
+		{1, 3, 2},
 	}
 
 	for _, test := range tests {
@@ -50,6 +53,9 @@ func TestCostCalculator(t *testing.T) {
 	}{
 		{[][]int{{0, 1, 1, 2}, {0, 2}}, []int{55, 80}},
 		{[][]int{{0, 1, 1, 2, 2, 3}, {0, 3}, {0, 2, 2, 3}}, []int{125, 90, 150}},
+		{[][]int{{1, 2, 2, 3}, {1, 3}}, []int{110, 50}},
+		{[][]int{{2, 3}}, []int{70}},
+		{[][]int{{1, 2}}, []int{40}},
 	}
 
 	for _, test := range tests {
@@ -70,6 +76,10 @@ func TestStopCalculator(t *testing.T) {
 	}{
 		{[][]int{{0, 2, 2, 3}}, "Castle Black", "Castle Black -> Riverrun -> King's Landing"},
 		{[][]int{{1, 3}}, "Winterfell", "Winterfell -> King's Landing"},
+		{[][]int{{1, 2}}, "Winterfell", "Winterfell -> Riverrun"},
+		{[][]int{{2, 3}}, "Riverrun", "Riverrun -> King's Landing"},
+		{[][]int{{1, 2, 2, 3}}, "Winterfell", "Winterfell -> Riverrun -> King's Landing"},
+		{[][]int{{0, 1, 1, 2, 2, 3}}, "Castle Black", "Castle Black -> Winterfell -> Riverrun -> King's Landing"},
 	}
 
 	for _, test := range tests {

@@ -19,10 +19,10 @@ var (
 
 func init() {
 	locations = []travelData{
-		{0, "castle black", []int{0, 15, 80, 90}},
-		{1, "winterfell", []int{0, 0, 40, 50}},
-		{2, "riverrun", []int{0, 0, 0, 70}},
-		{3, "king's landing", []int{0, 0, 0, 0}},
+		{0, "Castle Black", []int{0, 15, 80, 90}},
+		{1, "Winterfell", []int{0, 0, 40, 50}},
+		{2, "Riverrun", []int{0, 0, 0, 70}},
+		{3, "King's Landing", []int{0, 0, 0, 0}},
 	}
 
 	for j := 0; j < len(locations); j++ {
@@ -56,11 +56,11 @@ func run() error {
 
 	var departure, destination travelData
 	for _, l := range locations {
-		if l.airport == strings.ToLower(args[1]) {
+		if strings.ToLower(l.airport) == strings.ToLower(args[1]) {
 			departure = l
 		}
 
-		if l.airport == strings.ToLower(args[2]) {
+		if strings.ToLower(l.airport) == strings.ToLower(args[2]) {
 			destination = l
 		}
 	}
@@ -85,7 +85,7 @@ func run() error {
 }
 
 // flightPaths returns a slice  of all potential flight routes
-func flightPaths(s, e int) [][]int {
+func flightPaths(startLocation, endLocation int) [][]int {
 	var stops [][]int
 	var validPaths [][]int
 
@@ -97,13 +97,13 @@ func flightPaths(s, e int) [][]int {
 		}
 
 		// direct flight
-		if combinations[i][0] == s && combinations[i][1] == e {
+		if combinations[i][0] == startLocation && combinations[i][1] == endLocation {
 			validPaths = append(validPaths, combinations[i])
 			continue
 		}
 
 		// add all valid flights from the first stop to map
-		if combinations[i][0] == s {
+		if combinations[i][0] == startLocation {
 			stops = append(stops, combinations[i])
 			continue
 		}
@@ -121,7 +121,7 @@ func flightPaths(s, e int) [][]int {
 	}
 
 	for j := 0; j < len(stops); j++ {
-		if stops[j][0] == s && stops[j][len(stops[j])-1] == e {
+		if stops[j][0] == startLocation && stops[j][len(stops[j])-1] == endLocation {
 			validPaths = append(validPaths, stops[j])
 		}
 	}

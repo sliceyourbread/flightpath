@@ -47,9 +47,9 @@ func main() {
 func run() error {
 	args := os.Args
 
-	// if we receive more than two loctions return error
-	// however an improvement for this piece could be adding more control over the locations
-	if len(args) > 3 || len(args) < 3 {
+	// if we receive more or less than two loctions return error
+	// improvement for this piece could be adding more control over the locations
+	if len(args) != 3 {
 		return fmt.Errorf("incorrect number of parameters, please input two locations")
 	}
 
